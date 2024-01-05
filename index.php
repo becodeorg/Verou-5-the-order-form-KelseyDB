@@ -43,10 +43,11 @@ function validate()
       $invalidFields["products"] = "Select a product";
     }
     if(empty($_POST["zipcode"])){
-      $invalidFields["zipcode"] = "Zipcode can't be empty"
+      $invalidFields["zipcode"] = "Zipcode can't be empty";
     } elseif(!is_numeric($_POST["zipcode"])) {
-      $invalidFields["zipcode"] = "Zipcode can only contain numbers"
-    if(empty($_POST["email"])){
+      $invalidFields["zipcode"] = "Zipcode can only contain numbers";
+    }
+      if(empty($_POST["email"])){
       $invalidFields["email"] = "Email can't be empty";
     }
     elseif(!filter_var(($_POST["email"]), FILTER_VALIDATE_EMAIL)){
@@ -56,7 +57,7 @@ function validate()
       $invalidFields["street"] = "street is required";
     }
     if(empty($_POST["streetnumber"])){
-      $invalidFields["streetnumber"] = "street number is required"
+      $invalidFields["streetnumber"] = "street number is required";
     }
     return $invalidFields;
 }
