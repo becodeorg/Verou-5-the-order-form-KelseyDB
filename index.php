@@ -38,7 +38,27 @@ $totalValue = 0;
 function validate()
 {
     // TODO: This function will send a list of invalid fields back
-    return [];
+    $invalidFields = [];
+    if(!isset($_POST["products"])){
+      $invalidFields["products"] = "Select a product";
+    }
+    if(empty($_POST["zipcode"])){
+      $invalidFields["zipcode"] = "Zipcode can't be empty"
+    } elseif(!is_numeric($_POST["zipcode"])) {
+      $invalidFields["zipcode"] = "Zipcode can only contain numbers"
+    if(empty($_POST["email"])){
+      $invalidFields["email"] = "Email can't be empty";
+    }
+    elseif(!filter_var(($_POST["email"]), FILTER_VALIDATE_EMAIL)){
+      $invalidFields["email"] = "Please use a valid email";
+    }
+    if(empty($_POST["street"])){
+      $invalidFields["street"] = "street is required";
+    }
+    if(empty($_POST["streetnumber"])){
+      $invalidFields["streetnumber"] = "street number is required"
+    }
+    return $invalidFields;
 }
 
 function handleForm()
@@ -48,7 +68,9 @@ function handleForm()
     // Validation (step 2)
     $invalidFields = validate();
     if (!empty($invalidFields)) {
-        // TODO: handle errors
+      echo '<div class="alert alert-danger">';
+      echo "<strong>Errors found:</strong><br>" . implode("<br>", $invalidFields);
+      echo '</div>';
     } else {
         // TODO: handle successful submission
     }
@@ -56,7 +78,7 @@ function handleForm()
 
 // TODO: replace this if by an actual check for the form to be submitted
 $formSubmitted = false;
-if ($formSubmitted) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     handleForm();
 }
 
